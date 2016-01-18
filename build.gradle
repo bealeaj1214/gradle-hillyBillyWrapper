@@ -1,6 +1,17 @@
 
-
+apply plugin: 'org.arjibus.exp.launch-script'
 
 
 import org.arjibus.exp.launch.scripts.LaunchScriptSpec;
 import org.arjibus.exp.launch.scripts.LaunchScriptBinarySpec;
+
+
+
+model {
+
+    components {
+	aScript(LaunchScriptSpec){
+	    mainClass 'org.arjibus.exp.HelloWorld'
+	}
+    }
+}

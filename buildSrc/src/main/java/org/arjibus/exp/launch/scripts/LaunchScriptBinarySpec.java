@@ -2,13 +2,14 @@ package org.arjibus.exp.launch.scripts;
 
 import org.gradle.model.Managed;
 
+import org.gradle.platform.base.BinarySpec;
 import org.gradle.platform.base.ApplicationBinarySpec;
 
 
 import java.io.File;
 
 @Managed
-public interface LaunchScriptBinarySpec extends ApplicationBinarySpec {
+public interface LaunchScriptBinarySpec extends BinarySpec {
 
     
     void setMainClass(String mainClass);
