@@ -1,5 +1,7 @@
 package org.arjibus.exp.launch.plugin;
 
+
+import org.arjibus.exp.launch.scripts.LaunchScriptContainer;
 import org.arjibus.exp.launch.scripts.LaunchScriptSpec;
 import org.arjibus.exp.launch.scripts.LaunchScriptBinarySpec;
 
@@ -12,11 +14,15 @@ import org.gradle.language.base.plugins.ComponentModelBasePlugin;
 
 
 //import org.gradle.platform.base;
+import org.gradle.platform.base.BinaryContainer;
+import org.gradle.platform.base.BinarySpec;
 import org.gradle.platform.base.BinaryType;
 import org.gradle.platform.base.BinaryTypeBuilder;
 import org.gradle.platform.base.ComponentBinaries;
 import org.gradle.platform.base.ComponentType;
 import org.gradle.platform.base.ComponentTypeBuilder;
+
+import org.gradle.platform.base.internal.BinarySpecInternal;
 
 import org.gradle.model.Defaults;
 import org.gradle.model.Model;
@@ -40,6 +46,21 @@ public class LaunchScriptPlugin implements Plugin<Project>{
 	@ComponentType
 	void registerComponent(ComponentTypeBuilder<LaunchScriptSpec> builder){
 	}
+
+	@Model
+	void launchScripts(LaunchScriptContainer launchScripts){
+	}
+
+	@Mutate
+	void copyLaunchScriptBinariesToGlobalContainer(BinaryContainer binaries,
+						       LaunchScriptContainer launchScripts ){
+	    for(LaunchScriptSpec launchScript: launchScripts.values()){
+		for (BinarySpec binary: launchScript.getBinaries().withType(BinarySpec.class).values()){
+		    binaries.put(((BinarySpecInternal)binary).getProjectScopedName(),binary);
+		}
+	    }
+	}
+
 
 	@BinaryType
 	void registerBinary(BinaryTypeBuilder<LaunchScriptBinarySpec> builder){

@@ -9,7 +9,7 @@ import org.arjibus.exp.launch.scripts.LaunchScriptBinarySpec;
 
 model {
 
-    components {
+    launchScripts {
 	aScript(LaunchScriptSpec){
 	    mainClass 'org.arjibus.exp.HelloWorld'
 	}
